@@ -23,11 +23,17 @@ class App extends React.Component {
       id: new Date(),
       done: false
     };
+    this.setState(prevState => { 
+      return { 
+        todos: [...prevState.task, newTask]
+      }
+    })
   };
-  
+
   render() {
     return (
       <div>
+        <TodoList todos={this.state.todos} />
         <TodoForm
           inputChangeHandler={this.inputChangeHandler}
           task={this.state.task}
