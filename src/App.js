@@ -1,25 +1,41 @@
-import React from 'react';
-import Todo from "./TodoComponents/Todo";
-import TodoForm from "./TodoComponents/TodoForm"
-import TodoList from "./TodoComponents/TodoList"
+import React from "react";
+import Todo from "./components/TodoComponents/Todo";
+import TodoForm from "./components/TodoComponents/TodoForm";
+import TodoList from "./components/TodoComponents/TodoList";
 
 class App extends React.Component {
- constructor() { 
-   super();
-   this.state = { 
-     stateTodos: todos, 
-     name: "",
-     done: true,
-   }
- }
+  constructor() {
+    super();
+    this.state = {
+      todos: [],
+      task: ""
+    };
+  }
+
+  inputChangeHandler = event => {
+    this.setState({ task: event.target.value });
+  };
+
+  formSubmitHandler = event => {
+    event.preventDefault();
+    let newTask = {
+      task: this.state.task,
+      id: new Date(),
+      done: false
+    };
+  };
+  
   render() {
     return (
       <div>
-        <h2>Welcome to your Todo App!</h2>
+        <TodoForm
+          inputChangeHandler={this.inputChangeHandler}
+          task={this.state.task}
+          formSubmitHandler={this.formSubmitHandler}
+        />
       </div>
     );
   }
 }
 
 export default App;
-
