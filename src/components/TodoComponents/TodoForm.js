@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
 function TodoForm(props) {
-  console.log(props);
   return (
     <form onSubmit={props.formSubmitHandler}>
       <input

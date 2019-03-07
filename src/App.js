@@ -20,14 +20,15 @@ class App extends React.Component {
     event.preventDefault();
     let newTask = {
       task: this.state.task,
-      id: new Date(),
+      id: new Date().getTime() / 1000,
       done: false
     };
-    this.setState(prevState => { 
-      return { 
-        todos: [...prevState.task, newTask]
-      }
-    })
+
+    this.setState(prevState => {
+      return {
+        todos: [...prevState.todos, newTask],
+      };
+    });
   };
 
   render() {
