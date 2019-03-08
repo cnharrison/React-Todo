@@ -12,6 +12,10 @@ class App extends React.Component {
     };
   }
 
+  toggleTask = taskId => { 
+    console.log(taskId);
+  }
+
   inputChangeHandler = event => {
     this.setState({ task: event.target.value });
   };
@@ -20,7 +24,7 @@ class App extends React.Component {
     event.preventDefault();
     let newTask = {
       task: this.state.task,
-      id: new Date().getTime() / 1000,
+      id: Date.now(),
       done: false
     };
 
@@ -34,7 +38,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <TodoList todos={this.state.todos} />
+        <TodoList todos={this.state.todos} toggleTask={this.toggleTask}/>
         <TodoForm
           inputChangeHandler={this.inputChangeHandler}
           task={this.state.task}
