@@ -12,9 +12,29 @@ class App extends React.Component {
     };
   }
 
-  toggleTask = taskId => { 
-    console.log(taskId);
-  }
+  toggleTask = taskId => {
+    this.setState(prevState => {
+      console.log(prevState.todos);
+      return {
+        todos: prevState.todos.map(task => {
+          if (task.id === taskId) {
+            console.log("toggling task")
+            console.log(task.name)
+            console.log(task.id)
+            console.log(task.done)
+            return {
+              task: task.task,
+              id: task.id,
+              done: !task.done
+            };
+          } else {
+            console.log("returning task")
+            return task;
+          }
+        })
+      };
+    });
+  };
 
   inputChangeHandler = event => {
     this.setState({ task: event.target.value });
@@ -30,7 +50,7 @@ class App extends React.Component {
 
     this.setState(prevState => {
       return {
-        todos: [...prevState.todos, newTask],
+        todos: [...prevState.todos, newTask]
       };
     });
   };
@@ -38,7 +58,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <TodoList todos={this.state.todos} toggleTask={this.toggleTask}/>
+        <TodoList todos={this.state.todos} toggleTask={this.toggleTask} />
         <TodoForm
           inputChangeHandler={this.inputChangeHandler}
           task={this.state.task}
