@@ -12,23 +12,33 @@ class App extends React.Component {
     };
   }
 
+  clearCompleted = () => {
+    this.setState(prevState => {
+      return {
+        todos: prevState.todos.filter(task => {
+          return !task.done;
+        })
+      };
+    });
+  };
+
   toggleTask = taskId => {
     this.setState(prevState => {
       console.log(prevState.todos);
       return {
         todos: prevState.todos.map(task => {
           if (task.id === taskId) {
-            console.log("toggling task")
-            console.log(task.name)
-            console.log(task.id)
-            console.log(task.done)
+            console.log("toggling task");
+            console.log(task.name);
+            console.log(task.id);
+            console.log(task.done);
             return {
               task: task.task,
               id: task.id,
               done: !task.done
             };
           } else {
-            console.log("returning task")
+            console.log("returning task");
             return task;
           }
         })
@@ -42,6 +52,7 @@ class App extends React.Component {
 
   formSubmitHandler = event => {
     event.preventDefault();
+
     let newTask = {
       task: this.state.task,
       id: Date.now(),
@@ -50,7 +61,8 @@ class App extends React.Component {
 
     this.setState(prevState => {
       return {
-        todos: [...prevState.todos, newTask]
+        todos: [...prevState.todos, newTask],
+        task: ""
       };
     });
   };
@@ -60,10 +72,12 @@ class App extends React.Component {
       <div>
         <TodoList todos={this.state.todos} toggleTask={this.toggleTask} />
         <TodoForm
+          todos={this.state.todos}
           inputChangeHandler={this.inputChangeHandler}
           task={this.state.task}
           formSubmitHandler={this.formSubmitHandler}
         />
+        <button onClick={this.clearCompleted}>Clear Completed</button>
       </div>
     );
   }
